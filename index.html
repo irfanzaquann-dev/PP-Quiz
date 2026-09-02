@@ -22,6 +22,31 @@
                     },
                     fontFamily: {
                         sans: ['"Nunito"', 'sans-serif'],
+                    },
+                    animation: {
+                        'gradient-shift': 'gradient-shift 6s ease infinite',
+                        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'slide-up': 'slide-up 0.6s ease-out',
+                    },
+                    keyframes: {
+                        'gradient-shift': {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                            '100%': { backgroundPosition: '0% 50%' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: '1', boxShadow: '0 0 20px rgba(88, 204, 2, 0.5)' },
+                            '50%': { opacity: '0.8', boxShadow: '0 0 40px rgba(88, 204, 2, 0.8)' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'slide-up': {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
@@ -29,71 +54,187 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
     <style>
+        /* Animated gradient background */
+        .animated-bg {
+            background: linear-gradient(-45deg, #131f24, #1cb0f6, #58cc02, #ff6b6b);
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
+        }
+
+        /* Floating particles effect */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
         /* Fizik Butang 3D */
         .btn-3d {
             transition: all 0.1s;
+            position: relative;
+            overflow: hidden;
         }
+
+        .btn-3d::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.2);
+            transition: left 0.3s;
+            z-index: 1;
+        }
+
+        .btn-3d:hover::before {
+            left: 100%;
+        }
+
         .btn-3d:active:not(:disabled) {
             transform: translateY(4px);
             border-bottom-width: 0px !important;
             margin-top: 4px;
         }
+
         .progress-bar-fill {
             transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(88, 204, 2, 0.6);
         }
+
         .fade-enter {
-            animation: fadeIn 0.3s ease-out forwards;
+            animation: fadeIn 0.5s ease-out forwards;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
         }
+
         .animate-shake {
             animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
         }
+
         @keyframes shake {
             10%, 90% { transform: translate3d(-1px, 0, 0); }
             20%, 80% { transform: translate3d(2px, 0, 0); }
             30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
             40%, 60% { transform: translate3d(4px, 0, 0); }
         }
+
+        /* Glow effect for topic buttons */
+        .topic-btn {
+            transition: all 0.3s ease;
+            border-radius: 20px;
+        }
+
+        .topic-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Question slide animation */
+        .question-slide {
+            animation: slide-up 0.6s ease-out;
+        }
+
+        /* Streak counter glow */
+        .streak-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        /* Results celebration */
+        .celebrate {
+            animation: celebrate 0.6s ease-out;
+        }
+
+        @keyframes celebrate {
+            0% {
+                transform: scale(0.5) rotate(-5deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* Score box glow based on accuracy */
+        .score-excellent {
+            box-shadow: 0 0 30px rgba(88, 204, 2, 0.5);
+        }
+
+        .score-good {
+            box-shadow: 0 0 30px rgba(255, 193, 7, 0.5);
+        }
+
+        .score-poor {
+            box-shadow: 0 0 30px rgba(255, 75, 75, 0.5);
+        }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-brand-dark text-slate-800 dark:text-white min-h-screen flex flex-col font-sans transition-colors duration-300">
+<body class="bg-slate-50 dark:bg-brand-dark text-slate-800 dark:text-white min-h-screen flex flex-col font-sans transition-colors duration-300 animated-bg">
+
+    <!-- Floating particles background -->
+    <div id="particles-container"></div>
 
     <!-- Navigasi Atas -->
-    <nav class="w-full p-4 flex justify-between items-center max-w-2xl mx-auto">
-        <div class="text-2xl font-extrabold tracking-tight text-brand-blue">STPM<span class="text-brand-green">Kuiz</span></div>
-        <button id="theme-toggle" class="p-2 rounded-full bg-slate-200 dark:bg-brand-card hover:bg-slate-300 dark:hover:bg-slate-700 transition">
+    <nav class="w-full p-4 flex justify-between items-center max-w-2xl mx-auto relative z-10">
+        <div class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-brand-blue via-brand-green to-orange-400 bg-clip-text text-transparent animate-float">
+            STPM<span class="text-brand-green">Kuiz</span>
+        </div>
+        <button id="theme-toggle" class="p-3 rounded-full bg-slate-200 dark:bg-brand-card hover:bg-slate-300 dark:hover:bg-slate-700 transition transform hover:scale-110 duration-300">
             🌓
         </button>
     </nav>
 
-    <main class="flex-1 w-full max-w-2xl mx-auto p-4 flex flex-col" id="app-container">
+    <main class="flex-1 w-full max-w-2xl mx-auto p-4 flex flex-col relative z-10" id="app-container">
         
         <!-- Paparan 1: Pemilihan Topik -->
         <div id="view-home" class="fade-enter flex flex-col gap-4 mt-4">
-            <h1 class="text-2xl font-black mb-4 text-center">Pilih Topik Semester 3</h1>
+            <div class="text-center mb-6">
+                <h1 class="text-4xl font-black mb-2 bg-gradient-to-r from-blue-400 via-green-400 to-purple-400 bg-clip-text text-transparent">
+                    Pilih Topik Semester 3
+                </h1>
+                <p class="text-slate-400 font-semibold">Majukan skill bisnis anda sekarang! 🚀</p>
+            </div>
             
             <!-- Buttons akan diisi oleh JavaScript dari quiz-data.json -->
+            <div class="buttons-container flex flex-col gap-4"></div>
         </div>
 
         <!-- Paparan 2: Enjin Kuiz -->
         <div id="view-quiz" class="hidden flex-col h-full fade-enter">
             <!-- Pengepala: Kemajuan & Rekod Berturut-turut (Streak) -->
-            <div class="flex items-center gap-4 mb-8">
-                <button onclick="showHome()" class="text-slate-400 hover:text-slate-600 font-bold text-xl">✕</button>
-                <div class="flex-1 h-4 bg-slate-200 dark:bg-brand-card rounded-full overflow-hidden">
-                    <div id="progress-bar" class="h-full bg-brand-green progress-bar-fill w-0 rounded-full"></div>
+            <div class="flex items-center gap-4 mb-8 bg-gradient-to-r from-brand-card/50 to-transparent p-4 rounded-2xl">
+                <button onclick="showHome()" class="text-slate-400 hover:text-slate-600 font-bold text-2xl hover:scale-110 transition duration-300">✕</button>
+                <div class="flex-1">
+                    <div class="text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">Kemajuan</div>
+                    <div class="flex-1 h-3 bg-slate-200 dark:bg-brand-card rounded-full overflow-hidden border-2 border-slate-300 dark:border-slate-700">
+                        <div id="progress-bar" class="h-full bg-gradient-to-r from-brand-green to-lime-400 progress-bar-fill w-0 rounded-full"></div>
+                    </div>
                 </div>
-                <div class="flex items-center gap-1 font-bold text-orange-500 text-lg">
+                <div class="streak-glow flex items-center gap-2 font-black text-orange-400 text-2xl bg-brand-card/60 px-4 py-2 rounded-full">
                     🔥 <span id="streak-counter">0</span>
                 </div>
             </div>
 
             <!-- Ruangan Soalan -->
             <div class="flex-1 flex flex-col">
-                <h2 id="question-text" class="text-2xl font-black mb-8 leading-tight">Soalan akan dipaparkan di sini...</h2>
+                <h2 id="question-text" class="text-2xl font-black mb-8 leading-tight question-slide text-transparent bg-gradient-to-r from-blue-400 via-green-400 to-purple-400 bg-clip-text">
+                    Soalan akan dipaparkan di sini...
+                </h2>
                 
                 <div id="options-container" class="flex flex-col gap-3">
                     <!-- Pilihan jawapan dimasukkan melalui JS -->
@@ -101,43 +242,70 @@
             </div>
 
             <!-- Bar Tindakan Bawah -->
-            <div id="action-bar" class="mt-8 pt-4 border-t-2 border-slate-200 dark:border-brand-card hidden opacity-0 transition-opacity">
-                <button id="next-btn" onclick="nextQuestion()" class="btn-3d w-full bg-brand-green border-b-4 border-brand-green-dark text-white rounded-xl py-4 font-black text-lg uppercase tracking-wide">
-                    Seterusnya
+            <div id="action-bar" class="mt-8 pt-4 border-t-2 border-gradient-to-r from-brand-green to-transparent hidden opacity-0 transition-opacity">
+                <button id="next-btn" onclick="nextQuestion()" class="btn-3d w-full bg-gradient-to-r from-brand-green to-lime-400 border-b-4 border-brand-green-dark text-white rounded-xl py-4 font-black text-lg uppercase tracking-wide hover:scale-105 transition duration-300">
+                    Seterusnya 🎯
                 </button>
             </div>
         </div>
 
         <!-- Paparan 3: Keputusan -->
         <div id="view-results" class="hidden flex-col items-center justify-center h-full fade-enter text-center mt-12">
-            <h2 class="text-3xl font-black text-brand-green mb-2">Kuiz Selesai!</h2>
-            <p class="text-slate-500 dark:text-slate-400 font-bold mb-8">Konsistensi membina kecemerlangan.</p>
+            <h2 class="text-4xl font-black text-transparent bg-gradient-to-r from-green-400 to-brand-green bg-clip-text mb-2 celebrate">
+                🎉 Kuiz Selesai! 🎉
+            </h2>
+            <p class="text-slate-500 dark:text-slate-400 font-bold mb-8 text-lg">Konsistensi membina kecemerlangan. ⚡</p>
             
             <div class="grid grid-cols-2 gap-4 w-full mb-8">
-                <div class="bg-slate-100 dark:bg-brand-card p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700">
-                    <div class="text-sm font-bold text-slate-400 uppercase tracking-wide">Markah</div>
-                    <div id="final-score" class="text-3xl font-black text-brand-blue">0/0</div>
+                <div id="score-box" class="bg-gradient-to-br from-brand-card to-slate-800 p-6 rounded-2xl border-2 border-brand-blue/50 celebrate">
+                    <div class="text-sm font-bold text-slate-400 uppercase tracking-wide mb-2">Markah</div>
+                    <div id="final-score" class="text-4xl font-black text-brand-blue">0/0</div>
                 </div>
-                <div class="bg-slate-100 dark:bg-brand-card p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700">
-                    <div class="text-sm font-bold text-slate-400 uppercase tracking-wide">Ketepatan</div>
-                    <div id="final-accuracy" class="text-3xl font-black text-brand-green">0%</div>
+                <div id="accuracy-box" class="bg-gradient-to-br from-brand-card to-slate-800 p-6 rounded-2xl border-2 border-brand-green/50 celebrate">
+                    <div class="text-sm font-bold text-slate-400 uppercase tracking-wide mb-2">Ketepatan</div>
+                    <div id="final-accuracy" class="text-4xl font-black text-brand-green">0%</div>
                 </div>
             </div>
 
-            <div id="personal-best-container" class="w-full mb-8"></div>
+            <div id="personal-best-container" class="w-full mb-8 celebrate"></div>
 
-            <button onclick="showHome()" class="btn-3d w-full bg-brand-blue border-b-4 border-brand-blue-dark text-white rounded-xl py-4 font-black text-lg uppercase tracking-wide">
-                Kembali ke Menu Utama
+            <button onclick="showHome()" class="btn-3d w-full bg-gradient-to-r from-brand-blue to-cyan-400 border-b-4 border-brand-blue-dark text-white rounded-xl py-4 font-black text-lg uppercase tracking-wide hover:scale-105 transition duration-300">
+                🔄 Kembali ke Menu Utama
             </button>
         </div>
 
     </main>
 
-    <footer class="text-center p-6 text-xs font-bold text-slate-400 dark:text-slate-600">
-        Dibina khas untuk calon STPM Kolej Tingkatan Enam Desa Mahkota.
+    <footer class="text-center p-6 text-sm font-bold text-slate-400 dark:text-slate-500 relative z-10">
+        ✨ Dibina oleh <span class="text-brand-green">Irfan Zaquan</span> dari <span class="text-brand-blue">KTE(P) DESA MAHKOTA</span> ✨
     </footer>
 
     <script>
+        // ========== CREATE FLOATING PARTICLES ==========
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 100 + 20;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const duration = Math.random() * 20 + 20;
+                
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = left + '%';
+                particle.style.top = top + '%';
+                particle.style.backgroundColor = ['#1cb0f6', '#58cc02', '#ff6b6b', '#ffd700'][Math.floor(Math.random() * 4)];
+                particle.style.animation = `float ${duration}s infinite ease-in-out`;
+                
+                container.appendChild(particle);
+            }
+        }
+
         // ========== UTILITY: SHUFFLE ALGORITHM ==========
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -173,7 +341,6 @@
         function initializeUI() {
             const viewHome = document.getElementById('view-home');
             
-            // Find or create buttons container
             let buttonsContainer = viewHome.querySelector('.buttons-container');
             if (!buttonsContainer) {
                 buttonsContainer = document.createElement('div');
@@ -181,18 +348,20 @@
                 viewHome.appendChild(buttonsContainer);
             }
             
-            // Clear existing buttons
             buttonsContainer.innerHTML = '';
             
-            // Add buttons dari JSON
             if (quizDatabase && quizDatabase.quizzes) {
-                quizDatabase.quizzes.forEach(quiz => {
+                quizDatabase.quizzes.forEach((quiz, index) => {
                     const btn = document.createElement('button');
-                    btn.className = `btn-3d w-full ${quiz.color} border-b-4 ${quiz.colorDark} text-white rounded-2xl p-6 text-left relative overflow-hidden group`;
+                    btn.className = `btn-3d topic-btn w-full ${quiz.color} border-b-4 ${quiz.colorDark} text-white rounded-2xl p-6 text-left relative overflow-hidden group`;
+                    btn.style.animation = `slide-up 0.6s ease-out ${index * 0.1}s both`;
                     btn.onclick = () => startQuiz(quiz.topic);
                     btn.innerHTML = `
-                        <div class="font-bold text-xl mb-1">${quiz.title}</div>
-                        <div class="text-sm opacity-80 font-semibold">${quiz.description}</div>
+                        <div class="font-bold text-xl mb-2 flex items-center gap-2">
+                            <span class="text-2xl">📚</span>
+                            ${quiz.title}
+                        </div>
+                        <div class="text-sm opacity-90 font-semibold">${quiz.description}</div>
                     `;
                     buttonsContainer.appendChild(btn);
                 });
@@ -220,7 +389,6 @@
         function saveQuizResult(topic, score, total, accuracy, streak) {
             const data = getStoredData();
             
-            // Simpan score
             data.scores.push({
                 topic,
                 score,
@@ -230,7 +398,6 @@
                 date: new Date().toISOString()
             });
             
-            // Update highest streak per topic
             if (!data.streaks[topic]) {
                 data.streaks[topic] = { highest: streak, personal: streak };
             } else {
@@ -276,7 +443,6 @@
         }
 
         function startQuiz(topic) {
-            // Find topic dari database
             const quizTopic = quizDatabase.quizzes.find(q => q.topic === topic);
             if (!quizTopic) {
                 console.error('Topic tidak ditemukan:', topic);
@@ -285,7 +451,6 @@
             
             currentTopic = topic;
             
-            // Deep copy soalan dan shuffle
             currentQuestions = JSON.parse(JSON.stringify(quizTopic.questions));
             shuffleArray(currentQuestions);
             
@@ -310,15 +475,17 @@
             actionBar.classList.remove('opacity-100');
             
             const q = currentQuestions[currentIndex];
-            document.getElementById('question-text').innerText = q.question;
+            const questionElement = document.getElementById('question-text');
+            questionElement.innerText = q.question;
+            questionElement.classList.remove('question-slide');
+            void questionElement.offsetWidth; // Trigger reflow
+            questionElement.classList.add('question-slide');
             
-            // Animasi Bar Kemajuan
             const progress = (currentIndex / currentQuestions.length) * 100;
             progressBar.style.width = `${progress}%`;
 
             optionsContainer.innerHTML = '';
             
-            // Shuffle options sambil track original index
             const options = q.options.map((opt, idx) => ({ 
                 option: opt, 
                 originalIdx: idx 
@@ -327,10 +494,11 @@
             
             options.forEach((item, displayIdx) => {
                 const btn = document.createElement('button');
-                btn.className = `btn-3d w-full text-left p-4 rounded-xl border-2 border-slate-200 border-b-4 dark:border-slate-700 bg-white dark:bg-brand-card font-bold text-lg transition-colors`;
+                btn.className = `btn-3d w-full text-left p-4 rounded-xl border-2 border-slate-200 border-b-4 dark:border-slate-700 bg-white dark:bg-brand-card font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg`;
                 btn.innerText = item.option;
                 btn.dataset.originalIdx = item.originalIdx;
                 btn.dataset.displayIdx = displayIdx;
+                btn.style.animation = `slide-up 0.3s ease-out ${displayIdx * 0.05}s both`;
                 btn.onclick = () => handleAnswer(item.originalIdx, btn);
                 optionsContainer.appendChild(btn);
             });
@@ -340,12 +508,11 @@
             if (answered) return;
             answered = true;
             
-            // Disable semua buttons immediately untuk prevent rapid clicking
             const allBtns = optionsContainer.children;
             Array.from(allBtns).forEach(btn => {
                 btn.disabled = true;
                 btn.style.pointerEvents = 'none';
-                btn.style.opacity = '0.6';
+                btn.style.opacity = '0.5';
             });
             
             const q = currentQuestions[currentIndex];
@@ -353,7 +520,7 @@
 
             if (isCorrect) {
                 btnElement.classList.remove('border-slate-200', 'dark:border-slate-700', 'bg-white', 'dark:bg-brand-card');
-                btnElement.classList.add('bg-brand-green', 'border-brand-green-dark', 'text-white');
+                btnElement.classList.add('bg-brand-green', 'border-brand-green-dark', 'text-white', 'scale-105', 'shadow-lg');
                 score++;
                 streak++;
             } else {
@@ -361,26 +528,22 @@
                 btnElement.classList.add('bg-brand-red', 'border-brand-red-dark', 'text-white', 'animate-shake');
                 streak = 0;
                 
-                // Serlahkan jawapan yang betul
                 Array.from(allBtns).forEach(btn => {
                     if (parseInt(btn.dataset.originalIdx) === q.correct) {
                         btn.classList.remove('border-slate-200', 'dark:border-slate-700', 'bg-white', 'dark:bg-brand-card');
-                        btn.classList.add('bg-brand-green', 'border-brand-green-dark', 'text-white');
+                        btn.classList.add('bg-brand-green', 'border-brand-green-dark', 'text-white', 'scale-105');
                     }
                 });
             }
 
             updateStreak();
             
-            // Papar Butang Seterusnya
             actionBar.classList.remove('hidden');
             setTimeout(() => actionBar.classList.add('opacity-100'), 50);
             
-            // Kemas kini bar kemajuan
             const progress = ((currentIndex + 1) / currentQuestions.length) * 100;
             progressBar.style.width = `${progress}%`;
             
-            // Re-enable buttons selepas delay
             setTimeout(() => {
                 Array.from(allBtns).forEach(btn => {
                     btn.disabled = false;
@@ -411,28 +574,43 @@
             const accuracy = Math.round((score / currentQuestions.length) * 100);
             const personalBest = getPersonalBest(currentTopic);
             
-            // Simpan hasil ke localStorage
             saveQuizResult(currentTopic, score, currentQuestions.length, accuracy, streak);
             
             document.getElementById('final-score').innerText = `${score}/${currentQuestions.length}`;
             document.getElementById('final-accuracy').innerText = `${accuracy}%`;
             
-            // Papar personal best streak
             const personalBestContainer = document.getElementById('personal-best-container');
+            const emoji = accuracy >= 80 ? '🏆' : accuracy >= 60 ? '⭐' : '💪';
             personalBestContainer.innerHTML = `
-                <div class="bg-slate-100 dark:bg-brand-card p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700">
-                    <div class="text-sm font-bold text-slate-400 uppercase tracking-wide">🏆 Personal Best Streak</div>
-                    <div class="text-3xl font-black text-orange-500">${personalBest}</div>
+                <div class="bg-gradient-to-r from-orange-500/20 to-yellow-500/20 border-2 border-orange-400/50 p-6 rounded-2xl">
+                    <div class="text-sm font-bold text-slate-400 uppercase tracking-wide mb-2">${emoji} Personal Best Streak</div>
+                    <div class="text-4xl font-black text-orange-400">${personalBest} 🔥</div>
                 </div>
             `;
             
             const accuracyEl = document.getElementById('final-accuracy');
-            accuracyEl.className = `text-3xl font-black ${accuracy >= 80 ? 'text-brand-green' : accuracy >= 50 ? 'text-orange-500' : 'text-brand-red'}`;
+            const scoreBox = document.getElementById('score-box');
+            const accuracyBox = document.getElementById('accuracy-box');
+            
+            scoreBox.classList.remove('score-excellent', 'score-good', 'score-poor');
+            accuracyBox.classList.remove('score-excellent', 'score-good', 'score-poor');
+            
+            if (accuracy >= 80) {
+                accuracyEl.className = 'text-4xl font-black text-brand-green';
+                accuracyBox.classList.add('score-excellent');
+            } else if (accuracy >= 60) {
+                accuracyEl.className = 'text-4xl font-black text-yellow-400';
+                accuracyBox.classList.add('score-good');
+            } else {
+                accuracyEl.className = 'text-4xl font-black text-brand-red';
+                accuracyBox.classList.add('score-poor');
+            }
         }
 
         // ========== PAGE INITIALIZATION ==========
         window.addEventListener('DOMContentLoaded', () => {
             console.log('🚀 Initializing application...');
+            createParticles();
             initializeStorage();
             loadQuizData();
         });
