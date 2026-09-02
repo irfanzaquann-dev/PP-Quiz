@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ms" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kuiz Pengajian Perniagaan STPM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-dark': '#131f24',
+                        'brand-card': '#202f36',
+                        'brand-green': '#58cc02',
+                        'brand-green-dark': '#46a302',
+                        'brand-red': '#ff4b4b',
+                        'brand-red-dark': '#cc3c3c',
+                        'brand-blue': '#1cb0f6',
+                        'brand-blue-dark': '#1899d6',
+                    },
+                    fontFamily: {
+                        sans: ['"Nunito"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Fizik Butang 3D (Gaya Duolingo) */
+        .btn-3d {
+            transition: all 0.1s;
+        }
+        .btn-3d:active:not(:disabled) {
+            transform: translateY(4px);
+            border-bottom-width: 0px !important;
+            margin-top: 4px;
+        }
+        .progress-bar-fill {
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .fade-enter {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-brand-dark text-slate-800 dark:text-white min-h-screen flex flex-col font-sans transition-colors duration-300">
+
+    <!-- Navigasi Atas -->
+    <nav class="w-full p-4 flex justify-between items-center max-w-2xl mx-auto">
+        <div class="text-xl font-extrabold tracking-tight text-brand-blue">STPM<span class="text-slate-400">Kuiz</span></div>
+        <button id="theme-toggle" class="p-2 rounded-full bg-slate-200 dark:bg-brand-card hover:bg-slate-300 dark:hover:bg-slate-700 transition">
+            🌓
+        </button>
+    </nav>
+
+    <main class="flex-1 w-full max-w-2xl mx-auto p-4 flex flex-col" id="app-container">
+        
+        <!-- Paparan 1: Pemilihan Topik -->
+        <div id="view-home" class="fade-enter flex flex-col gap-4 mt-8">
+            <h1 class="text-2xl font-black mb-4 text-center">Pilih Topik Semester 3</h1>
+            
+            <button onclick="startQuiz('Bab 8')" class="btn-3d w-full bg-brand-blue border-b-4 border-brand-blue-dark text-white rounded-2xl p-6 text-left relative overflow-hidden group">
+                <div class="font-bold text-xl mb-1">Bab 8: Komunikasi</div>
+                <div class="text-sm opacity-80 font-semibold">Proses, Halangan & Rancangan Perniagaan</div>
+            </button>
+
+            <button onclick="startQuiz('Bab 9')" class="btn-3d w-full bg-brand-green border-b-4 border-brand-green-dark text-white rounded-2xl p-6 text-left relative overflow-hidden group">
+                <div class="font-bold text-xl mb-1">Bab 9: Keusahawanan</div>
+                <div class="text-sm opacity-80 font-semibold">Teori & Sifat Usahawan Berjaya</div>
+            </button>
+
+            <button onclick="startQuiz('Bab 10')" class="btn-3d w-full bg-purple-500 border-b-4 border-purple-700 text-white rounded-2xl p-6 text-left relative overflow-hidden group">
+                <div class="font-bold text-xl mb-1">Bab 10: Etika</div>
+                <div class="text-sm opacity-80 font-semibold">Tanggungjawab Sosial & Integriti</div>
+            </button>
+        </div>
+
+        <!-- Paparan 2: Enjin Kuiz -->
+        <div id="view-quiz" class="hidden flex-col h-full fade-enter">
+            <!-- Pengepala: Kemajuan & Rekod Berturut-turut (Streak) -->
+            <div class="flex items-center gap-4 mb-8">
+                <button onclick="showHome()" class="text-slate-400 hover:text-slate-600 font-bold text-xl">✕</button>
+                <div class="flex-1 h-4 bg-slate-200 dark:bg-brand-card rounded-full overflow-hidden">
+                    <div id="progress-bar" class="h-full bg-brand-green progress-bar-fill w-0 rounded-full"></div>
+                </div>
+                <div class="flex items-center gap-1 font-bold text-orange-500">
+                    🔥 <span id="streak-counter">0</span>
+                </div>
+            </div>
+
+            <!-- Ruangan Soalan -->
+            <div class="flex-1 flex flex-col">
+                <h2 id="question-text" class="text-2xl font-black mb-8 leading-tight">Soalan akan dipaparkan di sini...</h2>
+                
+                <div id="options-container" class="flex flex-col gap-3">
+                    <!-- Pilihan jawapan dimasukkan melalui JS -->
+                </div>
+            </div>
+
+            <!-- Bar Tindakan Bawah -->
+            <div id="action-bar" class="mt-8 pt-4 border-t-2 border-slate-200 dark:border-brand-card hidden opacity-0 transition-opacity">
+                <button id="next-btn" onclick="nextQuestion()" class="btn-3d w-full bg-brand-green border-b-4 border-brand-green-dark text-white rounded-xl py-4 font-black text-lg uppercase tracking-wide">
+                    Seterusnya
+                </button>
+            </div>
+        </div>
+
+        <!-- Paparan 3: Keputusan -->
+        <div id="view-results" class="hidden flex-col items-center justify-center h-full fade-enter text-center mt-12">
+            <h2 class="text-3xl font-black text-brand-green mb-2">Kuiz Selesai!</h2>
+            <p class="text-slate-500 dark:text-slate-400 font-bold mb-8">Kerja keras membuahkan hasil.</p>
+            
+            <div class="grid grid-cols-2 gap-4 w-full mb-8">
+                <div class="bg-slate-100 dark:bg-brand-card p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700">
+                    <div class="text-sm font-bold text-slate-400 uppercase tracking-wide">Markah</div>
+                    <div id="final-score" class="text-3xl font-black text-brand-blue">0/0</div>
+                </div>
+                <div class="bg-slate-100 dark:bg-brand-card p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700">
+                    <div class="text-sm font-bold text-slate-400 uppercase tracking-wide">Ketepatan</div>
+                    <div id="final-accuracy" class="text-3xl font-black text-brand-green">0%</div>
+                </div>
+            </div>
+
+            <button onclick="showHome()" class="btn-3d w-full bg-brand-blue border-b-4 border-brand-blue-dark text-white rounded-xl py-4 font-black text-lg uppercase tracking-wide">
+                Kembali ke Menu Utama
+            </button>
+        </div>
+
+    </main>
+
+    <script>
+        // Pangkalan Data Soalan Berdasarkan Modul Pengajian Perniagaan Semester 3
+        const quizData = [
+            {
+                topic: "Bab 8",
+                question: "Apakah urutan langkah yang betul dalam proses komunikasi?",
+                options: [
+                    "Penghantar, Enkod, Saluran, Dekod, Penerima, Maklum Balas",
+                    "Penghantar, Saluran, Enkod, Penerima, Dekod, Maklum Balas",
+                    "Penerima, Dekod, Saluran, Enkod, Penghantar, Maklum Balas"
+                ],
+                correct: 0
+            },
+            {
+                topic: "Bab 8",
+                question: "Antara berikut, yang manakah BUKAN halangan komunikasi?",
+                options: [
+                    "Fizikal",
+                    "Psikologikal",
+                    "Sosiologikal",
+                    "Ekonomi"
+                ],
+                correct: 3
+            },
+            {
+                topic: "Bab 8",
+                question: "Bentuk Business Pitching di mana usahawan memujuk pelabur dipanggil...",
+                options: [
+                    "Elevator Pitch",
+                    "Investor Pitch",
+                    "Sales Pitch"
+                ],
+                correct: 1
+            },
+            {
+                topic: "Bab 9",
+                question: "Menurut Stephen Covey, apakah tabii pertama orang yang berjaya?",
+                options: [
+                    "Berfikiran 'Menang-Menang'",
+                    "Bersinergi",
+                    "Bersikap Proaktif"
+                ],
+                correct: 2
+            },
+            {
+                topic: "Bab 10",
+                question: "Kuasa pembeli akan mengurangkan margin keuntungan syarikat apabila...",
+                options: [
+                    "Bilangan pembeli terlalu ramai",
+                    "Kos pertukaran pembeli kepada pembekal lain adalah tinggi",
+                    "Pembeli membeli dalam kuantiti yang besar"
+                ],
+                correct: 2
+            },
+            {
+                topic: "Bab 10",
+                question: "Hak untuk hidup dalam alam sekitar yang selamat tergolong dalam kategori...",
+                options: [
+                    "Hak-Hak Pengguna",
+                    "Pendekatan Tindakan Beretika",
+                    "Peranan Warga Korporat"
+                ],
+                correct: 0
+            }
+        ];
+
+        // Pengurusan Status (State Management)
+        let currentQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let streak = 0;
+        let answered = false;
+
+        // Elemen-elemen DOM
+        const viewHome = document.getElementById('view-home');
+        const viewQuiz = document.getElementById('view-quiz');
+        const viewResults = document.getElementById('view-results');
+        const optionsContainer = document.getElementById('options-container');
+        const actionBar = document.getElementById('action-bar');
+        const progressBar = document.getElementById('progress-bar');
+        
+        // Logik Penukaran Tema (Gelap/Terang)
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+
+        function showHome() {
+            viewQuiz.classList.add('hidden');
+            viewResults.classList.add('hidden');
+            viewHome.classList.remove('hidden');
+        }
+
+        function startQuiz(topic) {
+            currentQuestions = quizData.filter(q => q.topic === topic);
+            if(currentQuestions.length === 0) return alert("Soalan untuk topik ini sedang diselenggara!");
+            
+            // Tetapkan Semula Status (Reset State)
+            currentIndex = 0;
+            score = 0;
+            streak = 0;
+            updateStreak();
+            
+            viewHome.classList.add('hidden');
+            viewResults.classList.add('hidden');
+            viewQuiz.classList.remove('hidden');
+            viewQuiz.style.display = 'flex';
+            
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            actionBar.classList.add('hidden');
+            actionBar.classList.remove('opacity-100');
+            
+            const q = currentQuestions[currentIndex];
+            document.getElementById('question-text').innerText = q.question;
+            
+            // Kemas Kini Bar Kemajuan (Progress Bar)
+            const progress = (currentIndex / currentQuestions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            optionsContainer.innerHTML = '';
+            
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = `btn-3d w-full text-left p-4 rounded-xl border-2 border-slate-200 border-b-4 dark:border-slate-700 bg-white dark:bg-brand-card font-bold text-lg transition-colors`;
+                btn.innerText = opt;
+                btn.onclick = () => handleAnswer(index, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleAnswer(selectedIndex, btnElement) {
+            if (answered) return;
+            answered = true;
+            
+            const q = currentQuestions[currentIndex];
+            const isCorrect = selectedIndex === q.correct;
+            const allBtns = optionsContainer.children;
+
+            if (isCorrect) {
+                btnElement.classList.remove('border-slate-200', 'dark:border-slate-700', 'bg-white', 'dark:bg-brand-card');
+                btnElement.classList.add('bg-brand-green', 'border-brand-green-dark', 'text-white');
+                score++;
+                streak++;
+            } else {
+                btnElement.classList.remove('border-slate-200', 'dark:border-slate-700', 'bg-white', 'dark:bg-brand-card');
+                btnElement.classList.add('bg-brand-red', 'border-brand-red-dark', 'text-white', 'animate-shake');
+                streak = 0;
+                
+                // Serlahkan jawapan yang betul
+                allBtns[q.correct].classList.remove('border-slate-200', 'dark:border-slate-700', 'bg-white', 'dark:bg-brand-card');
+                allBtns[q.correct].classList.add('bg-brand-green', 'border-brand-green-dark', 'text-white');
+            }
+
+            updateStreak();
+            
+            // Tunjukkan Butang Seterusnya
+            actionBar.classList.remove('hidden');
+            setTimeout(() => actionBar.classList.add('opacity-100'), 50);
+        }
+
+        function updateStreak() {
+            document.getElementById('streak-counter').innerText = streak;
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex >= currentQuestions.length) {
+                showResults();
+            } else {
+                loadQuestion();
+            }
+        }
+
+        function showResults() {
+            viewQuiz.classList.add('hidden');
+            viewResults.classList.remove('hidden');
+            viewResults.style.display = 'flex';
+            
+            const accuracy = Math.round((score / currentQuestions.length) * 100);
+            document.getElementById('final-score').innerText = `${score}/${currentQuestions.length}`;
+            document.getElementById('final-accuracy').innerText = `${accuracy}%`;
+            
+            const accuracyEl = document.getElementById('final-accuracy');
+            accuracyEl.className = `text-3xl font-black ${accuracy >= 80 ? 'text-brand-green' : accuracy >= 50 ? 'text-orange-500' : 'text-brand-red'}`;
+        }
+    </script>
+</body>
+</html>
