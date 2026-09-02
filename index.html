@@ -75,20 +75,7 @@
         <div id="view-home" class="fade-enter flex flex-col gap-4 mt-4">
             <h1 class="text-2xl font-black mb-4 text-center">Pilih Topik Semester 3</h1>
             
-            <button onclick="startQuiz('Bab 8')" class="btn-3d w-full bg-brand-blue border-b-4 border-brand-blue-dark text-white rounded-2xl p-6 text-left relative overflow-hidden group">
-                <div class="font-bold text-xl mb-1">Bab 8: Komunikasi</div>
-                <div class="text-sm opacity-80 font-semibold">10 Soalan • Proses, Halangan & Perniagaan</div>
-            </button>
-
-            <button onclick="startQuiz('Bab 9')" class="btn-3d w-full bg-brand-green border-b-4 border-brand-green-dark text-white rounded-2xl p-6 text-left relative overflow-hidden group">
-                <div class="font-bold text-xl mb-1">Bab 9: Keusahawanan</div>
-                <div class="text-sm opacity-80 font-semibold">4 Soalan • Teori & Sifat Usahawan Berjaya</div>
-            </button>
-
-            <button onclick="startQuiz('Bab 10')" class="btn-3d w-full bg-purple-500 border-b-4 border-purple-700 text-white rounded-2xl p-6 text-left relative overflow-hidden group">
-                <div class="font-bold text-xl mb-1">Bab 10: Etika</div>
-                <div class="text-sm opacity-80 font-semibold">5 Soalan • Tanggungjawab Sosial & Integriti</div>
-            </button>
+            <!-- Buttons akan diisi oleh JavaScript dari quiz-data.json -->
         </div>
 
         <!-- Paparan 2: Enjin Kuiz -->
@@ -137,6 +124,8 @@
                 </div>
             </div>
 
+            <div id="personal-best-container" class="w-full mb-8"></div>
+
             <button onclick="showHome()" class="btn-3d w-full bg-brand-blue border-b-4 border-brand-blue-dark text-white rounded-xl py-4 font-black text-lg uppercase tracking-wide">
                 Kembali ke Menu Utama
             </button>
@@ -149,205 +138,119 @@
     </footer>
 
     <script>
-        const quizData = [
-            // ================= BAB 8 (10 Soalan) =================
-            {
-                topic: "Bab 8",
-                question: "Apakah langkah pertama dan terakhir dalam proses komunikasi?",
-                options: [
-                    "Penghantar dan Maklum Balas",
-                    "Enkod dan Dekod",
-                    "Saluran dan Penerima"
-                ],
-                correct: 0
-            },
-            {
-                topic: "Bab 8",
-                question: "Antara berikut, yang manakah merupakan contoh komunikasi bukan lisan?",
-                options: [
-                    "Perbincangan dan mesyuarat",
-                    "Bahasa isyarat dan bahasa badan",
-                    "Ucapan dan pembentangan"
-                ],
-                correct: 1
-            },
-            {
-                topic: "Bab 8",
-                question: "Internet boleh meluaskan peluang-peluang perniagaan melalui...",
-                options: [
-                    "Bersemuka dan panggilan telefon",
-                    "Bahan bercetak dan media cetak",
-                    "E-Dagang dan E-Pemasaran"
-                ],
-                correct: 2
-            },
-            {
-                topic: "Bab 8",
-                question: "Manakah antara berikut menyenaraikan halangan-halangan komunikasi yang tepat?",
-                options: [
-                    "Fizikal, Psikologikal, Sosiologikal, Semantik",
-                    "Rohani, Jasmani, Emosi, Intelek",
-                    "Ekonomi, Sosiologi, Psikologi"
-                ],
-                correct: 0
-            },
-            {
-                topic: "Bab 8",
-                question: "Tindakan berikut boleh mengatasi halangan komunikasi, KECUALI...",
-                options: [
-                    "Mendengar secara berkesan",
-                    "Mengelakkan penggunaan perkataan yang kabur",
-                    "Menggunakan gangguan proses komunikasi"
-                ],
-                correct: 2
-            },
-            {
-                topic: "Bab 8",
-                question: "Penawaran Nilai (Value Propositions) dan Segmen Pelanggan (Customer Segments) merupakan elemen dalam...",
-                options: [
-                    "Format Rancangan Perniagaan",
-                    "Business Model Canvas (BMC)",
-                    "Elemen Copywriting"
-                ],
-                correct: 1
-            },
-            {
-                topic: "Bab 8",
-                question: "Elemen 'Gesaan Tindakan' (Call To Action) dan 'Ciri-Ciri Unik Produk' (Unique Selling Point) amat penting dalam penulisan...",
-                options: [
-                    "Rumusan Eksekutif",
-                    "Copywriting",
-                    "Rancangan Organisasi"
-                ],
-                correct: 1
-            },
-            {
-                topic: "Bab 8",
-                question: "Apakah jenis 'Business Pitching' yang memfokuskan kepada pihak pelabur?",
-                options: [
-                    "Elevator Pitch",
-                    "Investor Pitch",
-                    "Sales Pitch"
-                ],
-                correct: 1
-            },
-            {
-                topic: "Bab 8",
-                question: "Dalam Format Rancangan Perniagaan, apakah bahagian yang ditulis selepas Rumusan Eksekutif?",
-                options: [
-                    "Objektif",
-                    "Latar Belakang Syarikat",
-                    "Pengenalan"
-                ],
-                correct: 2
-            },
-            {
-                topic: "Bab 8",
-                question: "Manakah antara berikut BUKAN saluran komunikasi yang dinyatakan dalam modul?",
-                options: [
-                    "Televisyen",
-                    "Telefon",
-                    "Bahan Bercetak"
-                ],
-                correct: 0
-            },
-
-            // ================= BAB 9 (4 Soalan) =================
-            {
-                topic: "Bab 9",
-                question: "Apakah tiga pendekatan utama dalam teori-teori keusahawanan?",
-                options: [
-                    "Pendekatan Rohani, Jasmani, dan Emosi",
-                    "Pendekatan Ekonomi, Psikologi, dan Sosiologi",
-                    "Pendekatan Pengeluaran, Kewangan, dan Pemasaran"
-                ],
-                correct: 1
-            },
-            {
-                topic: "Bab 9",
-                question: "Antara sifat peribadi usahawan berjaya ialah berani mengambil risiko, berwawasan, dan...",
-                options: [
-                    "Pasif dan statik",
-                    "Bijak merebut peluang",
-                    "Hanya menunggu maklum balas"
-                ],
-                correct: 1
-            },
-            {
-                topic: "Bab 9",
-                question: "Menurut Stephen Covey, 'Tajamkan Gergaji' dan 'Bersinergi' merujuk kepada...",
-                options: [
-                    "Pendekatan teori keusahawanan",
-                    "Sifat-sifat peribadi usahawan",
-                    "Tabii orang berjaya"
-                ],
-                correct: 2
-            },
-            {
-                topic: "Bab 9",
-                question: "Pendekatan kejayaan seimbang antara dunia dan akhirat merangkumi elemen...",
-                options: [
-                    "Rohani, Jasmani, Emosi, Intelek",
-                    "Ekonomi, Sosiologi, Psikologi",
-                    "Utilitarian, Individualisme, Hak Moral"
-                ],
-                correct: 0
-            },
-
-            // ================= BAB 10 (5 Soalan) =================
-            {
-                topic: "Bab 10",
-                question: "Antara berikut, yang manakah diklasifikasikan sebagai jenayah komersial?",
-                options: [
-                    "Pecah amanah, tuntutan palsu, dan skim cepat kaya",
-                    "Pecah rumah dan kecurian",
-                    "Pencemaran alam sekitar oleh warga korporat"
-                ],
-                correct: 0
-            },
-            {
-                topic: "Bab 10",
-                question: "Seorang warga korporat yang komited terhadap pihak berkepentingan perlu memfokuskan kepada...",
-                options: [
-                    "Pesaing antarabangsa dan media massa",
-                    "Masyarakat, pelanggan, pekerja, pelabur, dan pembekal",
-                    "Pengasas syarikat dan ahli pengurusan sahaja"
-                ],
-                correct: 1
-            },
-            {
-                topic: "Bab 10",
-                question: "Manakah antara berikut merupakan pendekatan tindakan beretika?",
-                options: [
-                    "Penawaran Nilai dan Saluran",
-                    "Rohani, Jasmani, Emosi",
-                    "Utilitarian, Individualisme, Hak Moral, Keadilan"
-                ],
-                correct: 2
-            },
-            {
-                topic: "Bab 10",
-                question: "Kuasa pembeli akan MENINGKAT apabila...",
-                options: [
-                    "Bilangan pembeli ramai dan produk sukar diganti",
-                    "Bilangan pembeli sedikit dan kos pertukaran pembekal lain adalah rendah",
-                    "Pembeli membeli dalam kuantiti yang kecil"
-                ],
-                correct: 1
-            },
-            {
-                topic: "Bab 10",
-                question: "Hak untuk mendapat maklumat, membuat pilihan, dan menyuarakan pendapat tergolong di bawah...",
-                options: [
-                    "Hak-Hak Pengguna",
-                    "Hak Asasi Manusia",
-                    "Peranan Warga Korporat"
-                ],
-                correct: 0
+        // ========== UTILITY: SHUFFLE ALGORITHM ==========
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
-        ];
+            return array;
+        }
 
-        // Pengurusan Status
+        // ========== LOAD DATA DARI JSON ==========
+        let quizDatabase = null;
+        let quizData = [];
+        let currentTopic = '';
+
+        async function loadQuizData() {
+            try {
+                const response = await fetch('quiz-data.json');
+                if (!response.ok) throw new Error('Gagal load quiz data');
+                quizDatabase = await response.json();
+                console.log('✅ Quiz data loaded successfully');
+                initializeUI();
+            } catch (error) {
+                console.error('⚠️ Error loading quiz data:', error);
+                loadEmbeddedData();
+            }
+        }
+
+        function loadEmbeddedData() {
+            console.log('📦 Using fallback embedded data');
+            quizDatabase = { quizzes: [] };
+        }
+
+        function initializeUI() {
+            const viewHome = document.getElementById('view-home');
+            
+            // Find or create buttons container
+            let buttonsContainer = viewHome.querySelector('.buttons-container');
+            if (!buttonsContainer) {
+                buttonsContainer = document.createElement('div');
+                buttonsContainer.className = 'buttons-container flex flex-col gap-4';
+                viewHome.appendChild(buttonsContainer);
+            }
+            
+            // Clear existing buttons
+            buttonsContainer.innerHTML = '';
+            
+            // Add buttons dari JSON
+            if (quizDatabase && quizDatabase.quizzes) {
+                quizDatabase.quizzes.forEach(quiz => {
+                    const btn = document.createElement('button');
+                    btn.className = `btn-3d w-full ${quiz.color} border-b-4 ${quiz.colorDark} text-white rounded-2xl p-6 text-left relative overflow-hidden group`;
+                    btn.onclick = () => startQuiz(quiz.topic);
+                    btn.innerHTML = `
+                        <div class="font-bold text-xl mb-1">${quiz.title}</div>
+                        <div class="text-sm opacity-80 font-semibold">${quiz.description}</div>
+                    `;
+                    buttonsContainer.appendChild(btn);
+                });
+            }
+        }
+
+        // ========== LOCAL STORAGE MANAGEMENT ==========
+        const STORAGE_KEY = 'stpmQuizData';
+
+        function initializeStorage() {
+            if (!localStorage.getItem(STORAGE_KEY)) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                    scores: [],
+                    streaks: {},
+                    lastUpdated: new Date().toISOString()
+                }));
+                console.log('📝 Local Storage initialized');
+            }
+        }
+
+        function getStoredData() {
+            return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        }
+
+        function saveQuizResult(topic, score, total, accuracy, streak) {
+            const data = getStoredData();
+            
+            // Simpan score
+            data.scores.push({
+                topic,
+                score,
+                total,
+                accuracy,
+                streak,
+                date: new Date().toISOString()
+            });
+            
+            // Update highest streak per topic
+            if (!data.streaks[topic]) {
+                data.streaks[topic] = { highest: streak, personal: streak };
+            } else {
+                data.streaks[topic].personal = streak;
+                if (streak > data.streaks[topic].highest) {
+                    data.streaks[topic].highest = streak;
+                }
+            }
+            
+            data.lastUpdated = new Date().toISOString();
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            console.log('💾 Quiz result saved to local storage');
+        }
+
+        function getPersonalBest(topic) {
+            const data = getStoredData();
+            return data.streaks?.[topic]?.highest || 0;
+        }
+
+        // ========== PENGURUSAN STATUS ==========
         let currentQuestions = [];
         let currentIndex = 0;
         let score = 0;
@@ -373,10 +276,24 @@
         }
 
         function startQuiz(topic) {
-            currentQuestions = quizData.filter(q => q.topic === topic);
+            // Find topic dari database
+            const quizTopic = quizDatabase.quizzes.find(q => q.topic === topic);
+            if (!quizTopic) {
+                console.error('Topic tidak ditemukan:', topic);
+                return;
+            }
+            
+            currentTopic = topic;
+            
+            // Deep copy soalan dan shuffle
+            currentQuestions = JSON.parse(JSON.stringify(quizTopic.questions));
+            shuffleArray(currentQuestions);
+            
             currentIndex = 0;
             score = 0;
             streak = 0;
+            answered = false;
+            
             updateStreak();
             
             viewHome.classList.add('hidden');
@@ -401,11 +318,20 @@
 
             optionsContainer.innerHTML = '';
             
-            q.options.forEach((opt, index) => {
+            // Shuffle options sambil track original index
+            const options = q.options.map((opt, idx) => ({ 
+                option: opt, 
+                originalIdx: idx 
+            }));
+            shuffleArray(options);
+            
+            options.forEach((item, displayIdx) => {
                 const btn = document.createElement('button');
                 btn.className = `btn-3d w-full text-left p-4 rounded-xl border-2 border-slate-200 border-b-4 dark:border-slate-700 bg-white dark:bg-brand-card font-bold text-lg transition-colors`;
-                btn.innerText = opt;
-                btn.onclick = () => handleAnswer(index, btn);
+                btn.innerText = item.option;
+                btn.dataset.originalIdx = item.originalIdx;
+                btn.dataset.displayIdx = displayIdx;
+                btn.onclick = () => handleAnswer(item.originalIdx, btn);
                 optionsContainer.appendChild(btn);
             });
         }
@@ -414,9 +340,16 @@
             if (answered) return;
             answered = true;
             
+            // Disable semua buttons immediately untuk prevent rapid clicking
+            const allBtns = optionsContainer.children;
+            Array.from(allBtns).forEach(btn => {
+                btn.disabled = true;
+                btn.style.pointerEvents = 'none';
+                btn.style.opacity = '0.6';
+            });
+            
             const q = currentQuestions[currentIndex];
             const isCorrect = selectedIndex === q.correct;
-            const allBtns = optionsContainer.children;
 
             if (isCorrect) {
                 btnElement.classList.remove('border-slate-200', 'dark:border-slate-700', 'bg-white', 'dark:bg-brand-card');
@@ -429,8 +362,12 @@
                 streak = 0;
                 
                 // Serlahkan jawapan yang betul
-                allBtns[q.correct].classList.remove('border-slate-200', 'dark:border-slate-700', 'bg-white', 'dark:bg-brand-card');
-                allBtns[q.correct].classList.add('bg-brand-green', 'border-brand-green-dark', 'text-white');
+                Array.from(allBtns).forEach(btn => {
+                    if (parseInt(btn.dataset.originalIdx) === q.correct) {
+                        btn.classList.remove('border-slate-200', 'dark:border-slate-700', 'bg-white', 'dark:bg-brand-card');
+                        btn.classList.add('bg-brand-green', 'border-brand-green-dark', 'text-white');
+                    }
+                });
             }
 
             updateStreak();
@@ -439,9 +376,18 @@
             actionBar.classList.remove('hidden');
             setTimeout(() => actionBar.classList.add('opacity-100'), 50);
             
-            // Kemas kini bar kemajuan untuk menunjukkan soalan selesai
+            // Kemas kini bar kemajuan
             const progress = ((currentIndex + 1) / currentQuestions.length) * 100;
             progressBar.style.width = `${progress}%`;
+            
+            // Re-enable buttons selepas delay
+            setTimeout(() => {
+                Array.from(allBtns).forEach(btn => {
+                    btn.disabled = false;
+                    btn.style.pointerEvents = 'auto';
+                    btn.style.opacity = '1';
+                });
+            }, 800);
         }
 
         function updateStreak() {
@@ -463,12 +409,33 @@
             viewResults.style.display = 'flex';
             
             const accuracy = Math.round((score / currentQuestions.length) * 100);
+            const personalBest = getPersonalBest(currentTopic);
+            
+            // Simpan hasil ke localStorage
+            saveQuizResult(currentTopic, score, currentQuestions.length, accuracy, streak);
+            
             document.getElementById('final-score').innerText = `${score}/${currentQuestions.length}`;
             document.getElementById('final-accuracy').innerText = `${accuracy}%`;
+            
+            // Papar personal best streak
+            const personalBestContainer = document.getElementById('personal-best-container');
+            personalBestContainer.innerHTML = `
+                <div class="bg-slate-100 dark:bg-brand-card p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700">
+                    <div class="text-sm font-bold text-slate-400 uppercase tracking-wide">🏆 Personal Best Streak</div>
+                    <div class="text-3xl font-black text-orange-500">${personalBest}</div>
+                </div>
+            `;
             
             const accuracyEl = document.getElementById('final-accuracy');
             accuracyEl.className = `text-3xl font-black ${accuracy >= 80 ? 'text-brand-green' : accuracy >= 50 ? 'text-orange-500' : 'text-brand-red'}`;
         }
+
+        // ========== PAGE INITIALIZATION ==========
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 Initializing application...');
+            initializeStorage();
+            loadQuizData();
+        });
     </script>
 </body>
 </html>
