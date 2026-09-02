@@ -1,0 +1,221 @@
+{
+  "quizzes": [
+    {
+      "topic": "Bab 8",
+      "title": "Komunikasi",
+      "description": "10 Soalan • Proses, Halangan & Perniagaan",
+      "color": "bg-brand-blue",
+      "colorDark": "border-brand-blue-dark",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Apakah langkah pertama dan terakhir dalam proses komunikasi?",
+          "options": [
+            "Penghantar dan Maklum Balas",
+            "Enkod dan Dekod",
+            "Saluran dan Penerima"
+          ],
+          "correct": 0
+        },
+        {
+          "id": 2,
+          "question": "Antara berikut, yang manakah merupakan contoh komunikasi bukan lisan?",
+          "options": [
+            "Perbincangan dan mesyuarat",
+            "Bahasa isyarat dan bahasa badan",
+            "Ucapan dan pembentangan"
+          ],
+          "correct": 1
+        },
+        {
+          "id": 3,
+          "question": "Internet boleh meluaskan peluang-peluang perniagaan melalui...",
+          "options": [
+            "Bersemuka dan panggilan telefon",
+            "Bahan bercetak dan media cetak",
+            "E-Dagang dan E-Pemasaran"
+          ],
+          "correct": 2
+        },
+        {
+          "id": 4,
+          "question": "Manakah antara berikut menyenaraikan halangan-halangan komunikasi yang tepat?",
+          "options": [
+            "Fizikal, Psikologikal, Sosiologikal, Semantik",
+            "Rohani, Jasmani, Emosi, Intelek",
+            "Ekonomi, Sosiologi, Psikologi"
+          ],
+          "correct": 0
+        },
+        {
+          "id": 5,
+          "question": "Tindakan berikut boleh mengatasi halangan komunikasi, KECUALI...",
+          "options": [
+            "Mendengar secara berkesan",
+            "Mengelakkan penggunaan perkataan yang kabur",
+            "Menggunakan gangguan proses komunikasi"
+          ],
+          "correct": 2
+        },
+        {
+          "id": 6,
+          "question": "Penawaran Nilai (Value Propositions) dan Segmen Pelanggan (Customer Segments) merupakan elemen dalam...",
+          "options": [
+            "Format Rancangan Perniagaan",
+            "Business Model Canvas (BMC)",
+            "Elemen Copywriting"
+          ],
+          "correct": 1
+        },
+        {
+          "id": 7,
+          "question": "Elemen 'Gesuan Tindakan' (Call To Action) dan 'Ciri-Ciri Unik Produk' (Unique Selling Point) amat penting dalam penulisan...",
+          "options": [
+            "Rumusan Eksekutif",
+            "Copywriting",
+            "Rancangan Organisasi"
+          ],
+          "correct": 1
+        },
+        {
+          "id": 8,
+          "question": "Apakah jenis 'Business Pitching' yang memfokuskan kepada pihak pelabur?",
+          "options": [
+            "Elevator Pitch",
+            "Investor Pitch",
+            "Sales Pitch"
+          ],
+          "correct": 1
+        },
+        {
+          "id": 9,
+          "question": "Dalam Format Rancangan Perniagaan, apakah bahagian yang ditulis selepas Rumusan Eksekutif?",
+          "options": [
+            "Objektif",
+            "Latar Belakang Syarikat",
+            "Pengenalan"
+          ],
+          "correct": 2
+        },
+        {
+          "id": 10,
+          "question": "Manakah antara berikut BUKAN saluran komunikasi yang dinyatakan dalam modul?",
+          "options": [
+            "Televisyen",
+            "Telefon",
+            "Bahan Bercetak"
+          ],
+          "correct": 0
+        }
+      ]
+    },
+    {
+      "topic": "Bab 9",
+      "title": "Keusahawanan",
+      "description": "4 Soalan • Teori & Sifat Usahawan Berjaya",
+      "color": "bg-brand-green",
+      "colorDark": "border-brand-green-dark",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Apakah tiga pendekatan utama dalam teori-teori keusahawanan?",
+          "options": [
+            "Pendekatan Rohani, Jasmani, dan Emosi",
+            "Pendekatan Ekonomi, Psikologi, dan Sosiologi",
+            "Pendekatan Pengeluaran, Kewangan, dan Pemasaran"
+          ],
+          "correct": 1
+        },
+        {
+          "id": 2,
+          "question": "Antara sifat peribadi usahawan berjaya ialah berani mengambil risiko, berwawasan, dan...",
+          "options": [
+            "Pasif dan statik",
+            "Bijak merebut peluang",
+            "Hanya menunggu maklum balas"
+          ],
+          "correct": 1
+        },
+        {
+          "id": 3,
+          "question": "Menurut Stephen Covey, 'Tajamkan Gergaji' dan 'Bersinergi' merujuk kepada...",
+          "options": [
+            "Pendekatan teori keusahawanan",
+            "Sifat-sifat peribadi usahawan",
+            "Tabii orang berjaya"
+          ],
+          "correct": 2
+        },
+        {
+          "id": 4,
+          "question": "Pendekatan kejayaan seimbang antara dunia dan akhirat merangkumi elemen...",
+          "options": [
+            "Rohani, Jasmani, Emosi, Intelek",
+            "Ekonomi, Sosiologi, Psikologi",
+            "Utilitarian, Individualisme, Hak Moral"
+          ],
+          "correct": 0
+        }
+      ]
+    },
+    {
+      "topic": "Bab 10",
+      "title": "Etika",
+      "description": "5 Soalan • Tanggungjawab Sosial & Integriti",
+      "color": "bg-purple-500",
+      "colorDark": "border-purple-700",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Antara berikut, yang manakah diklasifikasikan sebagai jenayah komersial?",
+          "options": [
+            "Pecah amanah, tuntutan palsu, dan skim cepat kaya",
+            "Pecah rumah dan kecurian",
+            "Pencemaran alam sekitar oleh warga korporat"
+          ],
+          "correct": 0
+        },
+        {
+          "id": 2,
+          "question": "Seorang warga korporat yang komited terhadap pihak berkepentingan perlu memfokuskan kepada...",
+          "options": [
+            "Pesaing antarabangsa dan media massa",
+            "Masyarakat, pelanggan, pekerja, pelabur, dan pembekal",
+            "Pengasas syarikat dan ahli pengurusan sahaja"
+          ],
+          "correct": 1
+        },
+        {
+          "id": 3,
+          "question": "Manakah antara berikut merupakan pendekatan tindakan beretika?",
+          "options": [
+            "Penawaran Nilai dan Saluran",
+            "Rohani, Jasmani, Emosi",
+            "Utilitarian, Individualisme, Hak Moral, Keadilan"
+          ],
+          "correct": 2
+        },
+        {
+          "id": 4,
+          "question": "Kuasa pembeli akan MENINGKAT apabila...",
+          "options": [
+            "Bilangan pembeli ramai dan produk sukar diganti",
+            "Bilangan pembeli sedikit dan kos pertukaran pembekal lain adalah rendah",
+            "Pembeli membeli dalam kuantiti yang kecil"
+          ],
+          "correct": 1
+        },
+        {
+          "id": 5,
+          "question": "Hak untuk mendapat maklumat, membuat pilihan, dan menyuarakan pendapat tergolong di bawah...",
+          "options": [
+            "Hak-Hak Pengguna",
+            "Hak Asasi Manusia",
+            "Peranan Warga Korporat"
+          ],
+          "correct": 0
+        }
+      ]
+    }
+  ]
+}
